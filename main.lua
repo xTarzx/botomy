@@ -5,6 +5,11 @@ local MenuScene = require("scenes.menu")
 local PickerScene = require("scenes.scenePicker")
 local SettingsScene = require("scenes.settings")
 
+FontSize = 32
+
+Settings = {
+    fullscreen = false,
+}
 
 function love.load()
     local states = {
