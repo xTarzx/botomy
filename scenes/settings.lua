@@ -75,7 +75,6 @@ function Scene:keypressed(key)
     elseif key == "w" or key == "up" then
         if self.selected == "back" then
             self.selected = #self.settings_map
-            print(self.selected)
         else
             self.selected = self.selected - 1
             if self.selected < 1 then
@@ -102,6 +101,7 @@ function Scene:keypressed(key)
                 local value = not Settings[settingName]
                 Settings[settingName] = value
                 love.window.setFullscreen(value)
+                SaveSettings()
             end
         end
     end
