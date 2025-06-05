@@ -2,19 +2,22 @@ local Scene = {}
 Scene.__index = Scene
 
 function Scene.new()
+
+    return setmetatable({
+        selected = nil,
+        settings_map = {}
+    }, Scene)
+end
+
+function Scene:enter(params)
     local settings_map = {}
 
     for entry in pairs(Settings) do
         table.insert(settings_map, entry)
     end
 
-    return setmetatable({
-        selected = nil,
-        settings_map = settings_map
-    }, Scene)
-end
+    self.settings_map = settings_map
 
-function Scene:enter(params)
     if not self.selected then
         self.selected = 1
     end
@@ -46,6 +49,10 @@ function Scene:draw()
 
         if type(value) == "boolean" then
             local text = tostring(value)
+            local text_w = font:getWidth(text)
+            love.graphics.print(text, value_x - text_w, y)
+        elseif type(value) == "string" then
+            local text = value
             local text_w = font:getWidth(text)
             love.graphics.print(text, value_x - text_w, y)
         end
@@ -96,12 +103,8 @@ function Scene:keypressed(key)
         else
             local settingName = self.settings_map[self.selected]
 
-
             if settingName == "fullscreen" then
-                local value = not Settings[settingName]
-                Settings[settingName] = value
-                love.window.setFullscreen(value)
-                SaveSettings()
+                ToggleFullscreen()
             end
         end
     end
