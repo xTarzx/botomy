@@ -49,18 +49,24 @@ function StateMachine:update(dt)
 end
 
 function StateMachine:draw()
-    local stateName = self.stack[#self.stack]
-    local state = self.states[stateName]
+    local drawStack = {}
 
-    if self.opts[stateName] and self.opts[stateName].popup then
-        local previous = self.states[self.stack[#self.stack - 1]]
-        if previous.draw then
-            previous:draw()
+    for i = #self.stack, 1, -1 do
+        local stateName = self.stack[i]
+        table.insert(drawStack, stateName)
+        if not (self.opts[stateName] and self.opts[stateName].popup) then
+            break
         end
     end
 
-    if state.draw then
-        state:draw()
+
+    for i = #drawStack, 1, -1 do
+        local stateName = drawStack[i]
+        local state = self.states[stateName]
+
+        if state.draw then
+            state:draw()
+        end
     end
 end
 
