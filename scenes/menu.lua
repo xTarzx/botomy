@@ -61,6 +61,7 @@ function Scene:handleSelection()
     local selected = self.menuEntries[self.selected]
 
     if selected == "PLAY" then
+        SceneManager:push("picker")
     elseif selected == "SETTINGS" then
         SceneManager:push("settings")
     elseif selected == "QUIT" then

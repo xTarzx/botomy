@@ -1,8 +1,9 @@
 local StateMachine = require("core.statemachine")
 
 local MenuScene = require("scenes.menu")
-local PickerScene = require("scenes.scenePicker")
+local PickerScene = require("scenes.levelPicker")
 local SettingsScene = require("scenes.settings")
+local PlayerScene = require("scenes.levelPlayer")
 
 local serializeTable = require("core.utils.serializeTable")
 local parseResolution = require("core.utils.parseResolution")
@@ -42,7 +43,8 @@ function love.load()
     local states = {
         menu = MenuScene.new(),
         picker = PickerScene.new(),
-        settings = SettingsScene.new()
+        settings = SettingsScene.new(),
+        player = PlayerScene.new()
     }
 
     SceneManager = StateMachine.new(states)
