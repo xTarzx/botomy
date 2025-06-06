@@ -16,6 +16,8 @@ function Level.new(params)
         canvasHeight = params.canvasHeight,
 
         dinos = {},
+        blocks = {},
+        spawnTimer = 0
     }, Level)
 
     for _, bot in ipairs(self.bots) do
@@ -41,6 +43,14 @@ function Level:transplantBrain(botIndex, brain)
 end
 
 function Level:update(dt)
+    if self.spawnTimer > 0 then
+        self.spawnTimer = self.spawnTimer - dt
+    end
+
+    if self.spawnTimer < 0 then
+        self.spawnTimer = love.math.random()
+    end
+
     local gravity = 500
     for _, bot in ipairs(self.bots) do
         local dino = self.dinos[bot]
