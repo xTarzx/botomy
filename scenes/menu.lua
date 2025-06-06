@@ -20,6 +20,7 @@ function Scene:draw()
     local titleFont = love.graphics.newFont(FontSize * 2, "mono")
     local font = love.graphics.newFont(FontSize * 1.5, "mono")
     local windowWidth, windowHeight = love.graphics.getDimensions()
+    local font_h = font:getHeight()
 
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.clear()
@@ -31,14 +32,13 @@ function Scene:draw()
 
     love.graphics.setFont(font)
     local y0 = windowHeight / 2
-    local h = font:getHeight()
     for i, entry in ipairs(self.menuEntries) do
         local text = entry
         if self.selected == i then
             text = "* " .. entry .. " *"
         end
         local w = font:getWidth(text)
-        local y = y0 + h * (i - 1)
+        local y = y0 + font_h * (i - 1)
         local x = windowWidth / 2 - w / 2
         love.graphics.print(text, x, y)
     end
