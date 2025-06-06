@@ -12,16 +12,16 @@ function Scene:update(dt)
 end
 
 function Scene:draw()
-    local titleFont = love.graphics.newFont(FontSize * 2, "mono")
-    local font = love.graphics.newFont(FontSize * 1.5, "mono")
+    local titleFont = love.graphics.newFont(FontSize * 0.80, "mono")
+    local font = love.graphics.newFont(FontSize * 0.65, "mono")
     local windowWidth, windowHeight = love.graphics.getDimensions()
     local font_h = font:getHeight()
 
     love.graphics.setColor(0, 0, 0, 0.4)
     love.graphics.rectangle("fill", 0, 0, windowWidth, windowHeight)
 
-    local boundary_w = windowHeight * 0.40
-    local boundary_h = windowHeight * 0.40
+    local boundary_w = windowHeight * 0.65
+    local boundary_h = windowHeight * 0.65
     local boundary_x = windowWidth / 2 - boundary_w / 2
     local boundary_y = windowHeight / 2 - boundary_h / 2
     love.graphics.setColor(0.4, 0.4, 0.4, 1.0)

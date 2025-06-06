@@ -74,7 +74,7 @@ function Scene:keypressed(key)
         SceneManager:push("pauseMenu", {}, { popup = true })
     elseif key == "space" then
         self.paused = not self.paused
-    elseif key == "c" then
+    elseif key == "e" then
         self:openCortex()
     end
 end
