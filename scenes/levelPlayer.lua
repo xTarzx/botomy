@@ -21,6 +21,9 @@ function Scene:setLevel(level)
     })
 end
 
+function Scene:resetLevel()
+end
+
 function Scene:enter(params)
     if params.level then
         self:setLevel(params.level)
@@ -41,6 +44,7 @@ function Scene:draw()
 
 
     love.graphics.setCanvas(self.canvas)
+    love.graphics.setFont(font)
     love.graphics.setBlendMode("alpha")
     self._level:draw()
     love.graphics.setCanvas()
@@ -70,10 +74,16 @@ function Scene:keypressed(key)
         SceneManager:push("pauseMenu", {}, { popup = true })
     elseif key == "space" then
         self.paused = not self.paused
+    elseif key == "c" then
+        self:openCortex()
     end
 end
 
 function Scene:keyreleased(key)
+end
+
+function Scene:openCortex()
+    SceneManager:push("cortex", {}, { popup = true })
 end
 
 return Scene

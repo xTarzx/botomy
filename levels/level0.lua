@@ -4,12 +4,7 @@ Level.__index = Level
 function Level.new(params)
     return setmetatable({
         bots = {},
-        canvasWidth = params.canvasWidth,
-        canvasHeight = params.canvasHeight,
     }, Level)
-end
-
-function Level:addBot(brain)
 end
 
 function Level:update(dt)
@@ -24,7 +19,6 @@ end
 
 local Meta = {
     name = "default",
-    max_bots = 1,
     level = Level
 }
 
