@@ -84,7 +84,10 @@ function Scene:keyreleased(key)
 end
 
 function Scene:openCortex()
-    SceneManager:push("cortex", { level = self._level }, { popup = true })
+    SceneManager:push("cortex", {
+        level = self._level,
+        neuroSeeds = self.neuroSeeds
+    }, { popup = true })
 end
 
 return Scene

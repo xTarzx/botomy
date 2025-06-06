@@ -4,12 +4,14 @@ Scene.__index = Scene
 function Scene.new()
     return setmetatable({
         selected = "add",
+        neuroSeeds = {},
     }, Scene)
 end
 
 function Scene:enter(params)
     assert(params and params.level, "you need a level bro")
-    self.level = params.level
+    self.level = params.level and params.level or self.level
+    self.neuroSeeds = params.neuroSeeds and params.neuroSeeds or self.neuroSeeds
 end
 
 function Scene:update(dt)
@@ -52,12 +54,19 @@ function Scene:draw()
     end
 
     local botList_x = addBot_cx - addText_w / 2
+    local botBrain_x = botList_x * 1.5
     for i, bot in ipairs(self.level.bots) do
         local y = addBot_y * 1.2 + (i - 1) * font_h
         love.graphics.print(bot, botList_x, y)
         if self.selected == i then
             love.graphics.print("*", botList_x - mark_w * 2, y)
             love.graphics.print("*", botList_x + font:getWidth(bot) + mark_w, y)
+        end
+
+        local brain = self.neuroSeeds[i]
+        if brain then
+            local text = brain.file
+            love.graphics.print(text, botBrain_x, y)
         end
     end
 end
@@ -99,7 +108,11 @@ function Scene:handleSelection()
     if self.selected == "add" then
         self.level:addBot()
     else
-        SceneManager:push("brainBank", {}, { popup = true })
+        SceneManager:push("brainBank", {
+            onSelect = function(brain)
+                self.neuroSeeds[self.selected] = { file = brain, neuroSeed = love.filesystem.load("brains/" .. brain)() }
+            end,
+        }, { popup = true })
     end
 end
 
