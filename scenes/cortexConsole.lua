@@ -48,13 +48,17 @@ function Scene:draw()
 
     if self.selected == addText then
         love.graphics.print("*", addBot_cx - addText_w / 2 - mark_w * 2, addBot_y)
-        love.graphics.print("*", addBot_cx + addText_w / 2 + mark_w * 2, addBot_y)
+        love.graphics.print("*", addBot_cx + addText_w / 2 + mark_w, addBot_y)
     end
 
     local botList_x = addBot_cx - addText_w / 2
     for i, bot in ipairs(self.level.bots) do
-        local y = addBot_y + i * font_h
+        local y = addBot_y * 1.2 + (i - 1) * font_h
         love.graphics.print(bot, botList_x, y)
+        if self.selected == i then
+            love.graphics.print("*", botList_x - mark_w * 2, y)
+            love.graphics.print("*", botList_x + font:getWidth(bot) + mark_w, y)
+        end
     end
 end
 
@@ -63,6 +67,28 @@ function Scene:keypressed(key)
         SceneManager:pop()
     elseif key == "space" or key == "return" then
         self:handleSelection()
+    elseif key == "w" or key == "up" then
+        if self.selected == "add" then
+            if #self.level.bots > 0 then
+                self.selected = #self.level.bots
+            end
+        else
+            self.selected = self.selected - 1
+            if self.selected < 1 then
+                self.selected = "add"
+            end
+        end
+    elseif key == "s" or key == "down" then
+        if self.selected == "add" then
+            if #self.level.bots > 0 then
+                self.selected = 1
+            end
+        else
+            self.selected = self.selected + 1
+            if self.selected > #self.level.bots then
+                self.selected = "add"
+            end
+        end
     end
 end
 
@@ -72,6 +98,8 @@ end
 function Scene:handleSelection()
     if self.selected == "add" then
         self.level:addBot()
+    else
+        SceneManager:push("brainBank", {}, { popup = true })
     end
 end
 
