@@ -24,7 +24,7 @@ function Scene:setLevel(level)
 end
 
 function Scene:resetLevel()
-    self.elasped = 0
+    self.elapsed = 0
     local bots = {}
     for i, bot in ipairs(self._level.bots) do
         bots[i] = bot
