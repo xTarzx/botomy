@@ -8,6 +8,7 @@ function Scene.new()
         paused = true,
         _level = nil,
         canvas = love.graphics.newCanvas(1280, 720),
+        neuroSeeds = {},
     }, Scene)
 end
 
@@ -83,7 +84,7 @@ function Scene:keyreleased(key)
 end
 
 function Scene:openCortex()
-    SceneManager:push("cortex", {}, { popup = true })
+    SceneManager:push("cortex", { level = self._level }, { popup = true })
 end
 
 return Scene

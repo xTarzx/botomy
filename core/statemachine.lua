@@ -31,6 +31,11 @@ function StateMachine:push(stateName, params, opts)
     self.opts[stateName] = opts
 end
 
+function StateMachine:get(stateName)
+    assert(self.states[stateName], "Invalid state: " .. stateName)
+    return self.states[stateName]
+end
+
 function StateMachine:pop()
     table.remove(self.stack, #self.stack)
 end

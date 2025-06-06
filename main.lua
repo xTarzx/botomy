@@ -6,6 +6,7 @@ local SettingsScene = require("scenes.settings")
 local PlayerScene = require("scenes.levelPlayer")
 local PauseMenuScene = require("scenes.pauseMenu")
 local CortexConsole = require("scenes.cortexConsole")
+local BrainBank = require("scenes.brainBank")
 
 local serializeTable = require("core.utils.serializeTable")
 local parseResolution = require("core.utils.parseResolution")
@@ -48,6 +49,7 @@ function love.load()
         player = PlayerScene.new(),
         pauseMenu = PauseMenuScene.new(),
         cortex = CortexConsole.new(),
+        brainBank = BrainBank.new(),
     }
 
     SceneManager = StateMachine.new(states)

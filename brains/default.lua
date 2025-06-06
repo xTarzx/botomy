@@ -2,7 +2,9 @@ local Brain = {}
 Brain.__index = Brain
 
 function Brain.new()
-    return setmetatable({}, Brain)
+    return setmetatable({
+        name = "default"
+    }, Brain)
 end
 
 function Brain:think(params)
