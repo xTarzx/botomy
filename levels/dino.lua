@@ -8,8 +8,8 @@ Level.__index = Level
 
 function Level.new(params)
     return setmetatable({
-        bots = {},
-        brains = {},
+        bots = params.bots or {},
+        brains = params.brains or {},
         canvasWidth = params.canvasWidth,
         canvasHeight = params.canvasHeight,
     }, Level)

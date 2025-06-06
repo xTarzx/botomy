@@ -9,6 +9,7 @@ function Scene.new()
         _level = nil,
         canvas = love.graphics.newCanvas(1280, 720),
         neuroSeeds = {},
+        elapsed = 0,
     }, Scene)
 end
 
@@ -23,6 +24,22 @@ function Scene:setLevel(level)
 end
 
 function Scene:resetLevel()
+    self.elasped = 0
+    local bots = {}
+    for i, bot in ipairs(self._level.bots) do
+        bots[i] = bot
+    end
+
+    self._level = self.meta.level.new({
+        canvasWidth = self.canvas:getWidth(),
+        canvasHeight = self.canvas:getHeight(),
+        bots = bots,
+    })
+
+    for i, bot in ipairs(self._level.bots) do
+        local brain = self.neuroSeeds[i] and self.neuroSeeds[i].neuroSeed.new()
+        self._level:transplantBrain(i, brain)
+    end
 end
 
 function Scene:enter(params)
@@ -34,6 +51,7 @@ end
 function Scene:update(dt)
     if not self.paused then
         self._level:update(dt)
+        self.elapsed = self.elapsed + dt
     end
 end
 
@@ -68,6 +86,9 @@ function Scene:draw()
     love.graphics.print(level, 0, 0)
     local state = self.paused and "paused" or "playing"
     love.graphics.print(state, 0, font_h)
+
+    local elapsed_x = font:getWidth(level)
+    love.graphics.print(" -- elapsed: " .. tostring(self.elapsed), elapsed_x, 0)
 end
 
 function Scene:keypressed(key)
@@ -75,7 +96,9 @@ function Scene:keypressed(key)
         SceneManager:push("pauseMenu", {}, { popup = true })
     elseif key == "space" then
         self.paused = not self.paused
-    elseif key == "e" then
+    elseif key == "r" then
+        self:resetLevel()
+    elseif key == "c" then
         self:openCortex()
     end
 end
