@@ -24,12 +24,13 @@ function Level:addBot(brain)
 end
 
 function Level:transplantBrain(botIndex, brain)
-    assert(botIndex < #self.bots, "zombies")
+    assert(botIndex <= #self.bots, "zombies")
 
     self.brains[self.bots[botIndex]] = brain
 end
 
 function Level:update(dt)
+    
 end
 
 function Level:draw()
