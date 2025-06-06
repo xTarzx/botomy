@@ -32,6 +32,8 @@ function Scene:draw()
     local windowWidth, windowHeight = love.graphics.getDimensions()
     local font_h = font:getHeight()
 
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.clear()
     love.graphics.setFont(titleFont)
     local title = "Settings"
     local titleWidth = titleFont:getWidth(title)

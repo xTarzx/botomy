@@ -28,6 +28,8 @@ function Scene:draw()
     local font_h = font:getHeight()
 
 
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.clear()
     love.graphics.setFont(titleFont)
     local title = "Levels"
     local titleWidth = titleFont:getWidth(title)

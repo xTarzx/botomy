@@ -4,6 +4,7 @@ local MenuScene = require("scenes.menu")
 local PickerScene = require("scenes.levelPicker")
 local SettingsScene = require("scenes.settings")
 local PlayerScene = require("scenes.levelPlayer")
+local PauseMenuScene = require("scenes.pauseMenu")
 
 local serializeTable = require("core.utils.serializeTable")
 local parseResolution = require("core.utils.parseResolution")
@@ -37,14 +38,14 @@ function ApplySettings()
     SaveSettings()
 end
 
-
 function love.load()
     LoadSettings()
     local states = {
         menu = MenuScene.new(),
         picker = PickerScene.new(),
         settings = SettingsScene.new(),
-        player = PlayerScene.new()
+        player = PlayerScene.new(),
+        pauseMenu = PauseMenuScene.new()
     }
 
     SceneManager = StateMachine.new(states)
@@ -73,4 +74,3 @@ function ToggleFullscreen()
     Settings.fullscreen = not Settings.fullscreen
     ApplySettings()
 end
-

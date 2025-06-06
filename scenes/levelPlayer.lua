@@ -41,14 +41,21 @@ function Scene:draw()
 
 
     love.graphics.setCanvas(self.canvas)
+    love.graphics.setBlendMode("alpha")
     self._level:draw()
     love.graphics.setCanvas()
 
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.clear()
     local ratio = canvas_h / windowHeight
     local scale = ratio * 0.8
     local x = windowWidth / 2 - canvas_w * scale / 2
     local y = windowHeight / 2 - canvas_h * scale / 2
+
+    love.graphics.setBlendMode("alpha", "premultiplied")
     love.graphics.draw(self.canvas, x, y, 0, scale, scale)
+
+    love.graphics.setBlendMode("alpha")
 
 
     love.graphics.setFont(font)
@@ -60,7 +67,7 @@ end
 
 function Scene:keypressed(key)
     if key == "escape" then
-        print("[UNIMPLEMENTED] escape in level player")
+        SceneManager:push("pauseMenu", {}, { popup = true })
     elseif key == "space" then
         self.paused = not self.paused
     end

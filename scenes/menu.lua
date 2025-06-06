@@ -21,6 +21,9 @@ function Scene:draw()
     local font = love.graphics.newFont(FontSize * 1.5, "mono")
     local windowWidth, windowHeight = love.graphics.getDimensions()
 
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.clear()
+
     love.graphics.setFont(titleFont)
     local title = "BOTomy"
     local titleWidth = titleFont:getWidth(title)
@@ -36,7 +39,7 @@ function Scene:draw()
         end
         local w = font:getWidth(text)
         local y = y0 + h * (i - 1)
-        local x = windowWidth/2-w/2
+        local x = windowWidth / 2 - w / 2
         love.graphics.print(text, x, y)
     end
 end
@@ -67,7 +70,6 @@ function Scene:handleSelection()
     elseif selected == "QUIT" then
         love.event.quit()
     end
-
 end
 
 return Scene
